@@ -31,20 +31,24 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
 set (SOURCE_DIR "./Source")
 set (SAMPLESOURCE_DIR "./SampleSource")
 set (UNITTEST_DIR "./UnitTests")
+set (DOSBOX_SOURCE_DIR "./Source/DosboxOPL/hardware")
 
 set(LIBOPLPP_SOURCE
 	${SOURCE_DIR}/liboplpp.hpp
 	${SOURCE_DIR}/liboplpp.cpp
 	${SOURCE_DIR}/Exceptions/OplppException.hpp
 	${SOURCE_DIR}/Exceptions/OplppException.cpp
-   )
+	)
 
 set(LIBOPLPP_UNITTEST_SOURCE
 	${UNITTEST_DIR}/main.hpp
 	${UNITTEST_DIR}/main.cpp
 	${UNITTEST_DIR}/APITest/APITest.hpp
 	${UNITTEST_DIR}/APITest/APITest.cpp
-   )
+	)
+
+set(DOSBOX_OPL_SOURCE
+	)
 
 #Code groupings allow for IDEs to put files into collections
 #instead of simply throwing all files into a pile. This should
@@ -126,10 +130,18 @@ if(SAMPLECODE)
 
 endif()
 
+option(DOSBOXOPL "Compile Dosbox OPL implementation" ON)
+if(DOSBOXOPL)
+
+	add_library(dosboxOPL ${DOSBOX_OPL_SOURCE})
+
+endif()
+
 #Tell the developer the current build options
 message("\n\nliboplpp Compile Options\n Unit Tests: ${UNITTESTS} [-DUNITESTS=(off-on)]")
 message(" Verbose Level: ${VERBOSE} [-DVERBOSE=[(1-5)] 1-Min 5-Max")
 if(APPLE)
 message(" Compile Framework: ${MAKEFRAMEWORK} [-DMAKEFRAMEWORK=(off-on)")
 endif()
-message(" Sample Code: ${SAMPLECODE} [-DSAMPLECODE=(off-on)\n")
+message(" Sample Code: ${SAMPLECODE} [-DSAMPLECODE=(off-on)")
+message(" Dosbox OPL Code: ${DOSBOXOPL} [-DDOSBOXOPL=(off-on)\n")
