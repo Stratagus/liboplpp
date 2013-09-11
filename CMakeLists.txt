@@ -67,6 +67,21 @@ set(DOSBOX_OPL_SOURCE
 	# mem.h
 	# dbopl.h
 	${DOSBOX_SOURCE_DIR}/adlib.cpp
+
+
+	${DOSBOX_SOURCE_DIR}/mixer.h
+	${DOSBOX_SOURCE_DIR}/pic.h
+	
+	${DOSBOX_SOURCE_DIR}/inout.h
+	${DOSBOX_SOURCE_DIR}/setup.h
+	${DOSBOX_SOURCE_DIR}/hardware.h
+
+	${DOSBOX_SOURCE_DIR}/mapper.h
+	${DOSBOX_SOURCE_DIR}/mem.h
+
+	${DOSBOX_SOURCE_DIR}/logging.h
+
+
 	)
 
 #Code groupings allow for IDEs to put files into collections
