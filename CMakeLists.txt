@@ -51,6 +51,8 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/config.h
 	${DOSBOX_SOURCE_DIR}/opl.h
 	${DOSBOX_SOURCE_DIR}/opl.cpp
+	${DOSBOX_SOURCE_DIR}/dbopl.h
+	${DOSBOX_SOURCE_DIR}/dbopl.cpp
 	)
 
 #Code groupings allow for IDEs to put files into collections
