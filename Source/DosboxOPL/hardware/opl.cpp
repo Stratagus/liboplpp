@@ -24,10 +24,10 @@
  * Ken Silverman's official web site: "http://www.advsys.net/ken"
  */
 
-
+#include <cstring>
 #include <math.h>
 #include <stdlib.h> // rand()
-#include "dosbox.h"
+#include "config.h"
 #include "opl.h"
 
 
