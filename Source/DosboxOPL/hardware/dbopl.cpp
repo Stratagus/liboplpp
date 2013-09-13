@@ -38,7 +38,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include "config.h"
+#include "dosbox.h"
 #include "dbopl.h"
 
 

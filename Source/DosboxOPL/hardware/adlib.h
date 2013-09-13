@@ -21,7 +21,7 @@
 #ifndef DOSBOX_ADLIB_H
 #define DOSBOX_ADLIB_H
 
-#include "config.h"
+#include "dosbox.h"
 #include "mixer.h"
 #include "inout.h"
 #include "setup.h"

@@ -1,7 +1,6 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
-
 /*
  *  Copyright (C) 2002-2010  The DOSBox Team
  *
@@ -309,3 +308,5 @@ typedef         double     Real64;
 #endif
 
 
+
+#include "logging.h"

@@ -29,8 +29,6 @@
 #include "mem.h"
 #include "dbopl.h"
 
-#include "logging.h"
-
 namespace OPL2 {
 	#include "opl.cpp"
 

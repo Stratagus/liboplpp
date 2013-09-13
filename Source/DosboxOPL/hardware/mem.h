@@ -20,7 +20,7 @@
 #define DOSBOX_MEM_H
 
 #ifndef DOSBOX_DOSBOX_H
-#include "config.h"
+#include "dosbox.h"
 #endif
 
 typedef Bit32u PhysPt;
