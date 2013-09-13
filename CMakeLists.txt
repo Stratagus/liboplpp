@@ -77,6 +77,9 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/pic.cpp
 	
 	${DOSBOX_SOURCE_DIR}/setup.h
+	# "cross.h" "setup.h" "control.h" "support.h"
+	${DOSBOX_SOURCE_DIR}/setup.cpp
+
 	${DOSBOX_SOURCE_DIR}/hardware.h
 
 	${DOSBOX_SOURCE_DIR}/mapper.h
@@ -93,8 +96,10 @@ set(DOSBOX_OPL_SOURCE
 
 	${DOSBOX_SOURCE_DIR}/regs.h
 
-	# No known source file
+	### No known source file ###
 	${DOSBOX_SOURCE_DIR}/inout.h
+	# "programs.h" "setup.h"
+	${DOSBOX_SOURCE_DIR}/control.h
 	)
 
 

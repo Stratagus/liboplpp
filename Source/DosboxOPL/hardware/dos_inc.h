@@ -537,32 +537,32 @@ private:
 	#endif
 };
 
-class DOS_MCB : public MemStruct{
-public:
-	DOS_MCB(Bit16u seg) { SetPt(seg); }
-	void SetFileName(char const * const _name) { MEM_BlockWrite(pt+offsetof(sMCB,filename),_name,8); }
-	void GetFileName(char * const _name) { MEM_BlockRead(pt+offsetof(sMCB,filename),_name,8);_name[8]=0;}
-	void SetType(Bit8u _type) { sSave(sMCB,type,_type);}
-	void SetSize(Bit16u _size) { sSave(sMCB,size,_size);}
-	void SetPSPSeg(Bit16u _pspseg) { sSave(sMCB,psp_segment,_pspseg);}
-	Bit8u GetType(void) { return (Bit8u)sGet(sMCB,type);}
-	Bit16u GetSize(void) { return (Bit16u)sGet(sMCB,size);}
-	Bit16u GetPSPSeg(void) { return (Bit16u)sGet(sMCB,psp_segment);}
-private:
-	#ifdef _MSC_VER
-	#pragma pack (1)
-	#endif
-	struct sMCB {
-		Bit8u type;
-		Bit16u psp_segment;
-		Bit16u size;	
-		Bit8u unused[3];
-		Bit8u filename[8];
-	} GCC_ATTRIBUTE(packed);
-	#ifdef _MSC_VER
-	#pragma pack ()
-	#endif
-};
+// class DOS_MCB : public MemStruct{
+// public:
+// 	DOS_MCB(Bit16u seg) { SetPt(seg); }
+// 	void SetFileName(char const * const _name) { MEM_BlockWrite(pt+offsetof(sMCB,filename),_name,8); }
+// 	void GetFileName(char * const _name) { MEM_BlockRead(pt+offsetof(sMCB,filename),_name,8);_name[8]=0;}
+// 	void SetType(Bit8u _type) { sSave(sMCB,type,_type);}
+// 	void SetSize(Bit16u _size) { sSave(sMCB,size,_size);}
+// 	void SetPSPSeg(Bit16u _pspseg) { sSave(sMCB,psp_segment,_pspseg);}
+// 	Bit8u GetType(void) { return (Bit8u)sGet(sMCB,type);}
+// 	Bit16u GetSize(void) { return (Bit16u)sGet(sMCB,size);}
+// 	Bit16u GetPSPSeg(void) { return (Bit16u)sGet(sMCB,psp_segment);}
+// private:
+// 	#ifdef _MSC_VER
+// 	#pragma pack (1)
+// 	#endif
+// 	struct sMCB {
+// 		Bit8u type;
+// 		Bit16u psp_segment;
+// 		Bit16u size;	
+// 		Bit8u unused[3];
+// 		Bit8u filename[8];
+// 	} GCC_ATTRIBUTE(packed);
+// 	#ifdef _MSC_VER
+// 	#pragma pack ()
+// 	#endif
+// };
 
 class DOS_SDA : public MemStruct {
 public:
