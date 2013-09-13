@@ -101,10 +101,14 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/timer.cpp
 
 	${DOSBOX_SOURCE_DIR}/cross.h
-	# "cross.h" "support.h"
+	# "cross.h"		"support.h"
 	${DOSBOX_SOURCE_DIR}/cross.cpp
 
 	${DOSBOX_SOURCE_DIR}/support.h
+	# "debug.h"		"support.h"	"video.h"
+	# Note: debug.h and video.h not required
+	${DOSBOX_SOURCE_DIR}/support.cpp
+
 	${DOSBOX_SOURCE_DIR}/programs.h
 
 	# "regs.h" "mem.h"
