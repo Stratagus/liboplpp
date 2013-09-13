@@ -72,8 +72,10 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/mixer.cpp
 
 	${DOSBOX_SOURCE_DIR}/pic.h
+	# "inout.h"	"cpu.h"		"callback.h"
+	# "pic.h"	"timer.h"	"setup.h"
+	${DOSBOX_SOURCE_DIR}/pic.cpp
 	
-	${DOSBOX_SOURCE_DIR}/inout.h
 	${DOSBOX_SOURCE_DIR}/setup.h
 	${DOSBOX_SOURCE_DIR}/hardware.h
 
@@ -85,6 +87,14 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/support.h
 	${DOSBOX_SOURCE_DIR}/programs.h
 
+	# "regs.h" "mem.h"
+	${DOSBOX_SOURCE_DIR}/cpu.h
+	${DOSBOX_SOURCE_DIR}/callback.h
+
+	${DOSBOX_SOURCE_DIR}/regs.h
+
+	# No known source file
+	${DOSBOX_SOURCE_DIR}/inout.h
 	)
 
 
