@@ -22,7 +22,7 @@
 #define DOSBOX_MIXER_H
 
 #ifndef DOSBOX_DOSBOX_H
-#include "config.h"
+#include "dosbox.h"
 #endif
 
 typedef void (*MIXER_MixHandler)(Bit8u * sampdate,Bit32u len);

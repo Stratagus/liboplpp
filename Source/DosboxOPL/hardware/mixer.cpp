@@ -36,7 +36,7 @@
 #include <mmsystem.h>
 #endif
 
-#include "SDL.h"
+#include <SDL.h>
 #include "mem.h"
 #include "pic.h"
 #include "dosbox.h"

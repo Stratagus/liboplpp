@@ -49,27 +49,28 @@ set(LIBOPLPP_UNITTEST_SOURCE
 
 set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/config.h
+	${DOSBOX_SOURCE_DIR}/logging.h
+	${DOSBOX_SOURCE_DIR}/dosbox.h
+
 	${DOSBOX_SOURCE_DIR}/opl.h
 	${DOSBOX_SOURCE_DIR}/opl.cpp
+
+	# "adlib.h"
 	${DOSBOX_SOURCE_DIR}/dbopl.h
 	${DOSBOX_SOURCE_DIR}/dbopl.cpp
 	
-	# mixer.h
-	# inout.h
-	# setup.h
-	# pic.h
-	# hardware.h
+	# "mixer.h" "inout.h" "setup.h"  "pic.h" "hardware.h"
 	${DOSBOX_SOURCE_DIR}/adlib.h
-
-	# adlib.h
-	# setup.h
-	# mapper.h
-	# mem.h
-	# dbopl.h
+	# "adlib.h" "setup.h" "mapper.h" "mem.h" "dbopl.h"
 	${DOSBOX_SOURCE_DIR}/adlib.cpp
 
 
 	${DOSBOX_SOURCE_DIR}/mixer.h
+	# <SDL.h>		"mem.h"			"pic.h"		"mixer.h"
+	# "timer.h"		"setup.h"		"cross.h"	"support.h"
+	# "mapper.h"	"hardware.h"	"programs.h"
+	${DOSBOX_SOURCE_DIR}/mixer.cpp
+
 	${DOSBOX_SOURCE_DIR}/pic.h
 	
 	${DOSBOX_SOURCE_DIR}/inout.h
@@ -79,10 +80,15 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/mapper.h
 	${DOSBOX_SOURCE_DIR}/mem.h
 
-	${DOSBOX_SOURCE_DIR}/logging.h
-
+	${DOSBOX_SOURCE_DIR}/timer.h
+	${DOSBOX_SOURCE_DIR}/cross.h
+	${DOSBOX_SOURCE_DIR}/support.h
+	${DOSBOX_SOURCE_DIR}/programs.h
 
 	)
+
+
+include_directories("/usr/include/SDL")
 
 #Code groupings allow for IDEs to put files into collections
 #instead of simply throwing all files into a pile. This should
