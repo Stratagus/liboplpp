@@ -53,6 +53,11 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/opl.cpp
 	)
 
+set(LIBOPLPP_SAMPLE_SOURCE
+	${SAMPLESOURCE_DIR}/OPLPlayer.cpp
+	${SAMPLESOURCE_DIR}/OPLPlayer.hpp
+	)
+
 #Code groupings allow for IDEs to put files into collections
 #instead of simply throwing all files into a pile. This should
 #allow for easy navigation through the code base for novice and
@@ -127,9 +132,7 @@ endif()
 option(SAMPLECODE "Compile SampleCode" OFF)
 if(SAMPLECODE)
 
-	#Example showing only the current application colors
-	# add_executable(ExtractFile ${SAMPLES_EXTRACTFILE_SOURCE})
-	# target_link_libraries(ExtractFile oplpp)
+	add_executable(OPLPlayer ${LIBOPLPP_SAMPLE_SOURCE})
 
 endif()
 
