@@ -101,6 +101,9 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/timer.cpp
 
 	${DOSBOX_SOURCE_DIR}/cross.h
+	# "cross.h" "support.h"
+	${DOSBOX_SOURCE_DIR}/cross.cpp
+
 	${DOSBOX_SOURCE_DIR}/support.h
 	${DOSBOX_SOURCE_DIR}/programs.h
 
