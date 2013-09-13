@@ -90,6 +90,7 @@ set(DOSBOX_OPL_SOURCE
 
 	# ${DOSBOX_SOURCE_DIR}/mapper.h
 	${DOSBOX_SOURCE_DIR}/mem.h
+	${DOSBOX_SOURCE_DIR}/memory.cpp
 
 	${DOSBOX_SOURCE_DIR}/timer.h
 	${DOSBOX_SOURCE_DIR}/cross.h
@@ -101,6 +102,8 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/callback.h
 
 	${DOSBOX_SOURCE_DIR}/regs.h
+
+	${DOSBOX_SOURCE_DIR}/paging.h
 
 	### No known source file ###
 	${DOSBOX_SOURCE_DIR}/inout.h
