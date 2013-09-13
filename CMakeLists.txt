@@ -79,7 +79,7 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/pic.cpp
 	
 	${DOSBOX_SOURCE_DIR}/setup.h
-	# "cross.h" "setup.h" "control.h" "support.h"
+	# "cross.h"		"setup.h"	"control.h"	"support.h"
 	${DOSBOX_SOURCE_DIR}/setup.cpp
 
 	${DOSBOX_SOURCE_DIR}/hardware.h
@@ -89,10 +89,17 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/hardware.cpp
 
 	# ${DOSBOX_SOURCE_DIR}/mapper.h
+
 	${DOSBOX_SOURCE_DIR}/mem.h
+	# "mem.h"		"inout.h"	"setup.h"
+	# "paging.h"	"regs.h"
 	${DOSBOX_SOURCE_DIR}/memory.cpp
 
 	${DOSBOX_SOURCE_DIR}/timer.h
+	# "inout.h"		"pic.h"		"mem.h"
+	# "mixer.h"		"timer.h"	"setup.h"
+	${DOSBOX_SOURCE_DIR}/timer.cpp
+
 	${DOSBOX_SOURCE_DIR}/cross.h
 	${DOSBOX_SOURCE_DIR}/support.h
 	${DOSBOX_SOURCE_DIR}/programs.h
