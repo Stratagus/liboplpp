@@ -26,7 +26,7 @@
 #include "setup.h"
 #include "support.h"
 #include "mem.h"
-#include "mapper.h"
+// #include "mapper.h"
 #include "pic.h"
 // #include "render.h"
 #include "cross.h"

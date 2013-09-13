@@ -62,6 +62,7 @@ set(DOSBOX_OPL_SOURCE
 	# "mixer.h" "inout.h" "setup.h"  "pic.h" "hardware.h"
 	${DOSBOX_SOURCE_DIR}/adlib.h
 	# "adlib.h" "setup.h" "mapper.h" "mem.h" "dbopl.h"
+	# Note: "mapper.h" not required
 	${DOSBOX_SOURCE_DIR}/adlib.cpp
 
 
@@ -69,6 +70,7 @@ set(DOSBOX_OPL_SOURCE
 	# <SDL.h>		"mem.h"			"pic.h"		"mixer.h"
 	# "timer.h"		"setup.h"		"cross.h"	"support.h"
 	# "mapper.h"	"hardware.h"	"programs.h"
+	# Note: "mapper.h" not required
 	${DOSBOX_SOURCE_DIR}/mixer.cpp
 
 	${DOSBOX_SOURCE_DIR}/pic.h
@@ -83,10 +85,10 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/hardware.h
 	# "hardware.h"	"setup.h"	"support.h"	"mem.h"
 	# "mapper.h"	"pic.h"		"render.h"	"cross.h"
-	# Note: "render.h" not required
+	# Note: "render.h" and "mapper.h" not required
 	${DOSBOX_SOURCE_DIR}/hardware.cpp
 
-	${DOSBOX_SOURCE_DIR}/mapper.h
+	# ${DOSBOX_SOURCE_DIR}/mapper.h
 	${DOSBOX_SOURCE_DIR}/mem.h
 
 	${DOSBOX_SOURCE_DIR}/timer.h
