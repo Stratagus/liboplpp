@@ -81,6 +81,10 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/setup.cpp
 
 	${DOSBOX_SOURCE_DIR}/hardware.h
+	# "hardware.h"	"setup.h"	"support.h"	"mem.h"
+	# "mapper.h"	"pic.h"		"render.h"	"cross.h"
+	# Note: "render.h" not required
+	${DOSBOX_SOURCE_DIR}/hardware.cpp
 
 	${DOSBOX_SOURCE_DIR}/mapper.h
 	${DOSBOX_SOURCE_DIR}/mem.h
