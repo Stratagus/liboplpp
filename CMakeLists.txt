@@ -109,7 +109,11 @@ set(DOSBOX_OPL_SOURCE
 	# Note: debug.h and video.h not required
 	${DOSBOX_SOURCE_DIR}/support.cpp
 
+	# "dos_inc.h"
 	${DOSBOX_SOURCE_DIR}/programs.h
+	# "programs.h"	"callback.h"	"regs.h"	"support.h"
+	# "cross.h"		"control.h"		"shell.h"
+	${DOSBOX_SOURCE_DIR}/programs.cpp
 
 	# "regs.h" "mem.h"
 	${DOSBOX_SOURCE_DIR}/cpu.h
@@ -118,6 +122,8 @@ set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/regs.h
 
 	${DOSBOX_SOURCE_DIR}/paging.h
+
+	${DOSBOX_SOURCE_DIR}/shell.h
 
 	### No known source file ###
 	${DOSBOX_SOURCE_DIR}/inout.h
