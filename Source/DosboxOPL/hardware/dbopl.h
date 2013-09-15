@@ -16,8 +16,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "adlib.h"
-#include "dosbox.h"
+#include "config.h"
 
 //Use 8 handlers based on a small logatirmic wavetabe and an exponential table for volume
 #define WAVE_HANDLER	10
@@ -244,14 +243,5 @@ struct Chip {
 
 	Chip();
 };
-
-struct Handler : public Adlib::Handler {
-	DBOPL::Chip chip;
-	virtual Bit32u WriteAddr( Bit32u port, Bit8u val );
-	virtual void WriteReg( Bit32u addr, Bit8u val );
-	virtual void Generate( MixerChannel* chan, Bitu samples );
-	virtual void Init( Bitu rate );
-};
-
 
 };		//Namespace
