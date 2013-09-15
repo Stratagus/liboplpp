@@ -38,7 +38,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include "dosbox.h"
+#include "config.h"
 #include "dbopl.h"
 
 
@@ -1481,32 +1481,5 @@ void InitTables( void ) {
 	}
 #endif
 }
-
-Bit32u Handler::WriteAddr( Bit32u port, Bit8u val ) {
-	return chip.WriteAddr( port, val );
-
-}
-void Handler::WriteReg( Bit32u addr, Bit8u val ) {
-	chip.WriteReg( addr, val );
-}
-
-void Handler::Generate( MixerChannel* chan, Bitu samples ) {
-	Bit32s buffer[ 512 * 2 ];
-	if ( GCC_UNLIKELY(samples > 512) )
-		samples = 512;
-	if ( !chip.opl3Active ) {
-		chip.GenerateBlock2( samples, buffer );
-		chan->AddSamples_m32( samples, buffer );
-	} else {
-		chip.GenerateBlock3( samples, buffer );
-		chan->AddSamples_s32( samples, buffer );
-	}
-}
-
-void Handler::Init( Bitu rate ) {
-	InitTables();
-	chip.Setup( rate );
-}
-
 
 };		//Namespace DBOPL

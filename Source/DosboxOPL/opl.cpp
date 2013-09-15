@@ -27,7 +27,7 @@
 #include <cstring>
 #include <math.h>
 #include <stdlib.h> // rand()
-#include "config.h"
+#include "dosbox.h"
 #include "opl.h"
 
 

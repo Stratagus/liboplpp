@@ -1,7 +1,6 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
-
 /*
  *  Copyright (C) 2002-2010  The DOSBox Team
  *
@@ -85,7 +84,7 @@
 #define C_SET_PRIORITY 1
 
 /* Define to 1 to enable screenshots, requires libpng */
-#define C_SSHOT 1
+#define C_SSHOT 0
 
 /* The type of cpu this target has */
 #define C_TARGETCPU X86_64
@@ -309,3 +308,5 @@ typedef         double     Real64;
 #endif
 
 
+
+#include "logging.h"
