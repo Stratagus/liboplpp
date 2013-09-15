@@ -49,90 +49,13 @@ set(LIBOPLPP_UNITTEST_SOURCE
 
 set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/config.h
-	${DOSBOX_SOURCE_DIR}/logging.h
-	${DOSBOX_SOURCE_DIR}/dosbox.h
 
 	${DOSBOX_SOURCE_DIR}/opl.h
 	${DOSBOX_SOURCE_DIR}/opl.cpp
 
-	# "adlib.h"
 	${DOSBOX_SOURCE_DIR}/dbopl.h
 	${DOSBOX_SOURCE_DIR}/dbopl.cpp
-	
-	# "mixer.h" "inout.h" "setup.h"  "pic.h" "hardware.h"
-	${DOSBOX_SOURCE_DIR}/adlib.h
-	# "adlib.h" "setup.h" "mapper.h" "mem.h" "dbopl.h"
-	# Note: "mapper.h" not required
-	${DOSBOX_SOURCE_DIR}/adlib.cpp
-
-
-	${DOSBOX_SOURCE_DIR}/mixer.h
-	# <SDL.h>		"mem.h"			"pic.h"		"mixer.h"
-	# "timer.h"		"setup.h"		"cross.h"	"support.h"
-	# "mapper.h"	"hardware.h"	"programs.h"
-	# Note: "mapper.h" not required
-	${DOSBOX_SOURCE_DIR}/mixer.cpp
-
-	${DOSBOX_SOURCE_DIR}/pic.h
-	# "inout.h"	"cpu.h"		"callback.h"
-	# "pic.h"	"timer.h"	"setup.h"
-	${DOSBOX_SOURCE_DIR}/pic.cpp
-	
-	${DOSBOX_SOURCE_DIR}/setup.h
-	# "cross.h"		"setup.h"	"control.h"	"support.h"
-	${DOSBOX_SOURCE_DIR}/setup.cpp
-
-	${DOSBOX_SOURCE_DIR}/hardware.h
-	# "hardware.h"	"setup.h"	"support.h"	"mem.h"
-	# "mapper.h"	"pic.h"		"render.h"	"cross.h"
-	# Note: "render.h" and "mapper.h" not required
-	${DOSBOX_SOURCE_DIR}/hardware.cpp
-
-	# ${DOSBOX_SOURCE_DIR}/mapper.h
-
-	${DOSBOX_SOURCE_DIR}/mem.h
-	# "mem.h"		"inout.h"	"setup.h"
-	# "paging.h"	"regs.h"
-	${DOSBOX_SOURCE_DIR}/memory.cpp
-
-	${DOSBOX_SOURCE_DIR}/timer.h
-	# "inout.h"		"pic.h"		"mem.h"
-	# "mixer.h"		"timer.h"	"setup.h"
-	${DOSBOX_SOURCE_DIR}/timer.cpp
-
-	${DOSBOX_SOURCE_DIR}/cross.h
-	# "cross.h"		"support.h"
-	${DOSBOX_SOURCE_DIR}/cross.cpp
-
-	${DOSBOX_SOURCE_DIR}/support.h
-	# "debug.h"		"support.h"	"video.h"
-	# Note: debug.h and video.h not required
-	${DOSBOX_SOURCE_DIR}/support.cpp
-
-	# "dos_inc.h"
-	${DOSBOX_SOURCE_DIR}/programs.h
-	# "programs.h"	"callback.h"	"regs.h"	"support.h"
-	# "cross.h"		"control.h"		"shell.h"
-	${DOSBOX_SOURCE_DIR}/programs.cpp
-
-	# "regs.h" "mem.h"
-	${DOSBOX_SOURCE_DIR}/cpu.h
-	${DOSBOX_SOURCE_DIR}/callback.h
-
-	${DOSBOX_SOURCE_DIR}/regs.h
-
-	${DOSBOX_SOURCE_DIR}/paging.h
-
-	${DOSBOX_SOURCE_DIR}/shell.h
-
-	### No known source file ###
-	${DOSBOX_SOURCE_DIR}/inout.h
-	# "programs.h" "setup.h"
-	${DOSBOX_SOURCE_DIR}/control.h
 	)
-
-
-include_directories("/usr/include/SDL")
 
 #Code groupings allow for IDEs to put files into collections
 #instead of simply throwing all files into a pile. This should
