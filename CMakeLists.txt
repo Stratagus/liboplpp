@@ -31,7 +31,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
 set (SOURCE_DIR "./Source")
 set (SAMPLESOURCE_DIR "./SampleSource")
 set (UNITTEST_DIR "./UnitTests")
-set (DOSBOX_SOURCE_DIR "./Source/DosboxOPL/hardware")
+set (DOSBOX_SOURCE_DIR "./Source/DosboxOPL")
 
 set(LIBOPLPP_SOURCE
 	${SOURCE_DIR}/liboplpp.hpp

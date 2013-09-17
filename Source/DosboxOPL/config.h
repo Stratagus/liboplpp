@@ -306,7 +306,3 @@ typedef         double     Real64;
   typedef Bit64u Bitu;
   typedef Bit64s Bits;
 #endif
-
-
-
-#include "logging.h"
