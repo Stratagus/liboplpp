@@ -13,6 +13,9 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <algorithm>
+
+#include "../liboplpp.hpp"
 
 class OPLMidi
 {
@@ -21,9 +24,11 @@ class OPLMidi
         ~OPLMidi();
     
         void LoadMidi(const std::string &filePath);
+        void SynthesizeToWav(const std::string &filePath, OPLSystem targetSynthesizer = DosBox);
     
     protected:
     private:
+    
 };
 
 

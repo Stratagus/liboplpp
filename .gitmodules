@@ -1,0 +1,3 @@
+[submodule "Libraries/libmidi"]
+	path = Libraries/libmidi
+	url = https://github.com/kkrizka/libmidi.git
