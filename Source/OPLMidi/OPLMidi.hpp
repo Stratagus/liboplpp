@@ -23,14 +23,13 @@
 class OPLMidi
 {
     public:
-        OPLMidi();
+        OPLMidi(const std::string &filePath);
         ~OPLMidi();
     
-        void LoadMidi(const std::string &filePath);
-        void SynthesizeToWav(const std::string &filePath, OPLSystem targetSynthesizer = DosBox);
-    
     protected:
+            MIDI::File *mainMidi;
     private:
+
     
 };
 

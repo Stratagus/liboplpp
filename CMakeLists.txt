@@ -120,7 +120,7 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 endif()
 
 add_library(oplpp SHARED ${LIBOPLPP_SOURCE} ${LIBOPLPP_EXCEPTION_SOURCE} ${OPLMIDI_SOURCE} ${DOSBOX_OPL_SOURCE})
-
+target_link_libraries(oplpp midi)
 if(APPLE)
 
 option(MAKEFRAMEWORK "Create FRAMEWORK" OFF)

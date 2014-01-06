@@ -1,21 +1,11 @@
 #include "OPLMidi.hpp"
 
-OPLMidi::OPLMidi()
+OPLMidi::OPLMidi(const std::string &filePath)
 {
-    
+    mainMidi = new MIDI::File(filePath.c_str());
 }
 
 OPLMidi::~OPLMidi()
-{
-    
-}
-
-void OPLMidi::LoadMidi(const std::string &filePath)
-{
-    
-}
-
-void OPLMidi::SynthesizeToWav(const std::string &filePath, OPLSystem targetSynthesizer)
 {
     
 }
