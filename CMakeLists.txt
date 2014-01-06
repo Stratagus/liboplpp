@@ -37,14 +37,23 @@ add_definitions(-DSIZEOF_UNSIGNED_CHAR=${UNSIGNED_CHAR_SIZE}
 				-DSIZEOF_UNSIGNED_INT=${UNSIGNED_INT_SIZE}
 				-DSIZEOF_UNSIGNED_LONG_LONG=${UNSIGNED_LONG_LONG_SIZE}
 				-DSIZEOF_UNSIGNED_SHORT=${UNSIGNED_SHORT_SIZE})
+
+
+
 #Source directory variables
 #These allow for folders in the source and unittesting to be moved
 #without having to manually change each individual filepath, they
 #also act as shortcuts.
-set (SOURCE_DIR "./Source")
-set (OPLPLAYER_SOURCE_DIR "./OPLPlayer")
-set (UNITTEST_DIR "./UnitTests")
-set (DOSBOX_SOURCE_DIR "./Source/DosboxOPL")
+set(SOURCE_DIR "./Source")
+set(LIBRARY_DIR "./Libraries")
+set(OPLPLAYER_SOURCE_DIR "./OPLPlayer")
+set(UNITTEST_DIR "./UnitTests")
+set(DOSBOX_SOURCE_DIR "./Source/DosboxOPL")
+
+#Add LibMidi for decoding
+ADD_SUBDIRECTORY(${LIBRARY_DIR}/libmidi/src)
+
+include_directories(${LIBRARY_DIR}/libmidi/src)
 
 set(LIBOPLPP_SOURCE
 		${SOURCE_DIR}/liboplpp.hpp

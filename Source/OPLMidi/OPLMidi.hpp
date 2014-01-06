@@ -15,6 +15,9 @@
 #include <string>
 #include <algorithm>
 
+//Libmidi includes
+#include <MIDI.h>
+
 #include "../liboplpp.hpp"
 
 class OPLMidi
