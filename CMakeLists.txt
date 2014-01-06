@@ -24,6 +24,19 @@ option(RPATH "Relative Runtime Path" OFF)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
                       ${CMAKE_MODULE_PATH})
 
+
+#Find the size of different types
+include(CheckTypeSize)
+
+check_type_size("unsigned char" UNSIGNED_CHAR_SIZE)
+check_type_size("unsigned int" UNSIGNED_INT_SIZE)
+check_type_size("unsigned long long" UNSIGNED_LONG_LONG_SIZE)
+check_type_size("unsigned short" UNSIGNED_SHORT_SIZE)
+
+add_definitions(-DSIZEOF_UNSIGNED_CHAR=${UNSIGNED_CHAR_SIZE}
+				-DSIZEOF_UNSIGNED_INT=${UNSIGNED_INT_SIZE}
+				-DSIZEOF_UNSIGNED_LONG_LONG=${UNSIGNED_LONG_LONG_SIZE}
+				-DSIZEOF_UNSIGNED_SHORT=${UNSIGNED_SHORT_SIZE})
 #Source directory variables
 #These allow for folders in the source and unittesting to be moved
 #without having to manually change each individual filepath, they
@@ -53,6 +66,7 @@ set(LIBOPLPP_UNITTEST_SOURCE
 set(DOSBOX_OPL_SOURCE
 	${DOSBOX_SOURCE_DIR}/dbopl.h
 	${DOSBOX_SOURCE_DIR}/dbopl.cpp
+	${DOSBOX_SOURCE_DIR}/dboplconfig.h
 	)
 
 set(OPLPLAYER_SOURCE
@@ -147,3 +161,5 @@ message(" Verbose Level: ${VERBOSE} [-DVERBOSE=[(1-5)] 1-Min 5-Max")
 if(APPLE)
 message(" Compile Framework: ${MAKEFRAMEWORK} [-DMAKEFRAMEWORK=(off-on)")
 endif()
+
+message("UNsigned short size: ${UNSIGNED_SHORT_SIZE}")
