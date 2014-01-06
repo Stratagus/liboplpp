@@ -47,8 +47,8 @@ set (UNITTEST_DIR "./UnitTests")
 set (DOSBOX_SOURCE_DIR "./Source/DosboxOPL")
 
 set(LIBOPLPP_SOURCE
-	${SOURCE_DIR}/liboplpp.hpp
-	${SOURCE_DIR}/liboplpp.cpp
+		${SOURCE_DIR}/liboplpp.hpp
+		${SOURCE_DIR}/liboplpp.cpp
 	)
 
 set(LIBOPLPP_EXCEPTION_SOURCE
@@ -56,22 +56,27 @@ set(LIBOPLPP_EXCEPTION_SOURCE
 		${SOURCE_DIR}/Exceptions/OplppException.cpp
 	)
 
+set(OPLMIDI_SOURCE
+	${SOURCE_DIR}/OPLMidi/OPLMidi.hpp
+	${SOURCE_DIR}/OPLMidi/OPLMidi.cpp
+	)
+
 set(LIBOPLPP_UNITTEST_SOURCE
-	${UNITTEST_DIR}/main.hpp
-	${UNITTEST_DIR}/main.cpp
-	${UNITTEST_DIR}/APITest/APITest.hpp
-	${UNITTEST_DIR}/APITest/APITest.cpp
+		${UNITTEST_DIR}/main.hpp
+		${UNITTEST_DIR}/main.cpp
+		${UNITTEST_DIR}/APITest/APITest.hpp
+		${UNITTEST_DIR}/APITest/APITest.cpp
 	)
 
 set(DOSBOX_OPL_SOURCE
-	${DOSBOX_SOURCE_DIR}/dbopl.h
-	${DOSBOX_SOURCE_DIR}/dbopl.cpp
-	${DOSBOX_SOURCE_DIR}/dboplconfig.h
+		${DOSBOX_SOURCE_DIR}/dbopl.h
+		${DOSBOX_SOURCE_DIR}/dbopl.cpp
+		${DOSBOX_SOURCE_DIR}/dboplconfig.h
 	)
 
 set(OPLPLAYER_SOURCE
-	${OPLPLAYER_SOURCE_DIR}/main.cpp
-	${OPLPLAYER_SOURCE_DIR}/main.hpp
+		${OPLPLAYER_SOURCE_DIR}/main.cpp
+		${OPLPLAYER_SOURCE_DIR}/main.hpp
 	)
 
 #Code groupings allow for IDEs to put files into collections
@@ -79,6 +84,7 @@ set(OPLPLAYER_SOURCE
 #allow for easy navigation through the code base for novice and
 #heavy contributors.
 source_group(Main FILES ${LIBOPLPP_SOURCE})
+source_group(OPLMidi FILES ${OPLMIDI_SOURCE})
 source_group(Exceptions FILES ${LIBOPLPP_EXCEPTION_SOURCE})
 source_group(Dosbox FILES ${DOSBOX_OPL_SOURCE})
 
@@ -104,7 +110,7 @@ IF("${isSystemDir}" STREQUAL "-1")
 ENDIF("${isSystemDir}" STREQUAL "-1")
 endif()
 
-add_library(oplpp SHARED ${LIBOPLPP_SOURCE} ${LIBOPLPP_EXCEPTION_SOURCE} ${DOSBOX_OPL_SOURCE})
+add_library(oplpp SHARED ${LIBOPLPP_SOURCE} ${LIBOPLPP_EXCEPTION_SOURCE} ${OPLMIDI_SOURCE} ${DOSBOX_OPL_SOURCE})
 
 if(APPLE)
 
@@ -161,5 +167,3 @@ message(" Verbose Level: ${VERBOSE} [-DVERBOSE=[(1-5)] 1-Min 5-Max")
 if(APPLE)
 message(" Compile Framework: ${MAKEFRAMEWORK} [-DMAKEFRAMEWORK=(off-on)")
 endif()
-
-message("UNsigned short size: ${UNSIGNED_SHORT_SIZE}")
