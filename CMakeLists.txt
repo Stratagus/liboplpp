@@ -29,15 +29,18 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
 #without having to manually change each individual filepath, they
 #also act as shortcuts.
 set (SOURCE_DIR "./Source")
-set (SAMPLESOURCE_DIR "./SampleSource")
+set (OPLPLAYER_SOURCE_DIR "./OPLPlayer")
 set (UNITTEST_DIR "./UnitTests")
 set (DOSBOX_SOURCE_DIR "./Source/DosboxOPL")
 
 set(LIBOPLPP_SOURCE
 	${SOURCE_DIR}/liboplpp.hpp
 	${SOURCE_DIR}/liboplpp.cpp
-	${SOURCE_DIR}/Exceptions/OplppException.hpp
-	${SOURCE_DIR}/Exceptions/OplppException.cpp
+	)
+
+set(LIBOPLPP_EXCEPTION_SOURCE
+		${SOURCE_DIR}/Exceptions/OplppException.hpp
+		${SOURCE_DIR}/Exceptions/OplppException.cpp
 	)
 
 set(LIBOPLPP_UNITTEST_SOURCE
@@ -48,18 +51,13 @@ set(LIBOPLPP_UNITTEST_SOURCE
 	)
 
 set(DOSBOX_OPL_SOURCE
-	${DOSBOX_SOURCE_DIR}/config.h
-
-	${DOSBOX_SOURCE_DIR}/opl.h
-	${DOSBOX_SOURCE_DIR}/opl.cpp
-
 	${DOSBOX_SOURCE_DIR}/dbopl.h
 	${DOSBOX_SOURCE_DIR}/dbopl.cpp
 	)
 
-set(LIBOPLPP_SAMPLE_SOURCE
-	${SAMPLESOURCE_DIR}/OPLPlayer.cpp
-	${SAMPLESOURCE_DIR}/OPLPlayer.hpp
+set(OPLPLAYER_SOURCE
+	${OPLPLAYER_SOURCE_DIR}/main.cpp
+	${OPLPLAYER_SOURCE_DIR}/main.hpp
 	)
 
 #Code groupings allow for IDEs to put files into collections
@@ -67,6 +65,8 @@ set(LIBOPLPP_SAMPLE_SOURCE
 #allow for easy navigation through the code base for novice and
 #heavy contributors.
 source_group(Main FILES ${LIBOPLPP_SOURCE})
+source_group(Exceptions FILES ${LIBOPLPP_EXCEPTION_SOURCE})
+source_group(Dosbox FILES ${DOSBOX_OPL_SOURCE})
 
 if(RPATH)
 # use, i.e. don't skip the full RPATH for the build tree
@@ -90,7 +90,7 @@ IF("${isSystemDir}" STREQUAL "-1")
 ENDIF("${isSystemDir}" STREQUAL "-1")
 endif()
 
-add_library(oplpp SHARED ${LIBOPLPP_SOURCE})
+add_library(oplpp SHARED ${LIBOPLPP_SOURCE} ${LIBOPLPP_EXCEPTION_SOURCE} ${DOSBOX_OPL_SOURCE})
 
 if(APPLE)
 
@@ -133,17 +133,11 @@ if(UNITTESTS)
 	target_link_libraries(liboplppUnitTests oplpp ${Boost_LIBRARIES})
 endif()
 
-option(SAMPLECODE "Compile SampleCode" OFF)
-if(SAMPLECODE)
+option(OPLPlayer "Compile OPLPlayer" ON)
+if(OPLPlayer)
 
-	add_executable(OPLPlayer ${LIBOPLPP_SAMPLE_SOURCE})
-
-endif()
-
-option(DOSBOXOPL "Compile Dosbox OPL implementation" ON)
-if(DOSBOXOPL)
-
-	add_library(dosboxOPL ${DOSBOX_OPL_SOURCE})
+	add_executable(OPLPlayer ${OPLPLAYER_SOURCE})
+	target_link_libraries(OPLPlayer oplpp)
 
 endif()
 
@@ -153,5 +147,3 @@ message(" Verbose Level: ${VERBOSE} [-DVERBOSE=[(1-5)] 1-Min 5-Max")
 if(APPLE)
 message(" Compile Framework: ${MAKEFRAMEWORK} [-DMAKEFRAMEWORK=(off-on)")
 endif()
-message(" Sample Code: ${SAMPLECODE} [-DSAMPLECODE=(off-on)")
-message(" Dosbox OPL Code: ${DOSBOXOPL} [-DDOSBOXOPL=(off-on)\n")
