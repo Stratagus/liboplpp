@@ -26,8 +26,12 @@ class OPLMidi
         OPLMidi(const std::string &filePath);
         ~OPLMidi();
     
+        unsigned int NumberOfTracks();
+        unsigned int FramesPerSecond();
+        unsigned int TicksPerFrame();
     protected:
             MIDI::File *mainMidi;
+            MIDI::Header *mainMidiHeader;
     private:
 
     
