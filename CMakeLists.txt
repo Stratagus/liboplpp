@@ -48,7 +48,14 @@ set(SOURCE_DIR "./Source")
 set(LIBRARY_DIR "./Libraries")
 set(OPLPLAYER_SOURCE_DIR "./OPLPlayer")
 set(UNITTEST_DIR "./UnitTests")
-set(DOSBOX_SOURCE_DIR "./Source/DosboxOPL")
+
+#Different file format supported by liboplpp
+set(FILEFORMATS_DIR "${SOURCE_DIR}/FileFormats")
+set(S16PCMWAV "${FILEFORMATS_DIR}/S16PCMWav")
+
+#Different OPL emulators offered
+set(EMULATORS_DIR "${SOURCE_DIR}/Emulators")
+set(DOSBOX_SOURCE_DIR "${EMULATORS_DIR}/DosboxOPL")
 
 #Add LibMidi for decoding
 ADD_SUBDIRECTORY(${LIBRARY_DIR}/libmidi/src)
@@ -65,11 +72,6 @@ set(LIBOPLPP_EXCEPTION_SOURCE
 		${SOURCE_DIR}/Exceptions/OplppException.cpp
 	)
 
-set(OPLMIDI_SOURCE
-	${SOURCE_DIR}/OPLMidi/OPLMidi.hpp
-	${SOURCE_DIR}/OPLMidi/OPLMidi.cpp
-	)
-
 set(LIBOPLPP_UNITTEST_SOURCE
 		${UNITTEST_DIR}/main.hpp
 		${UNITTEST_DIR}/main.cpp
@@ -80,7 +82,8 @@ set(LIBOPLPP_UNITTEST_SOURCE
 set(DOSBOX_OPL_SOURCE
 		${DOSBOX_SOURCE_DIR}/dbopl.h
 		${DOSBOX_SOURCE_DIR}/dbopl.cpp
-		${DOSBOX_SOURCE_DIR}/dboplconfig.h
+		${DOSBOX_SOURCE_DIR}/DosboxOPL.hpp
+		${DOSBOX_SOURCE_DIR}/DosboxOPL.cpp
 	)
 
 set(OPLPLAYER_SOURCE
@@ -93,9 +96,9 @@ set(OPLPLAYER_SOURCE
 #allow for easy navigation through the code base for novice and
 #heavy contributors.
 source_group(Main FILES ${LIBOPLPP_SOURCE})
-source_group(OPLMidi FILES ${OPLMIDI_SOURCE})
+source_group(FileFormats\\OPLMidi FILES ${OPLMIDI_SOURCE})
 source_group(Exceptions FILES ${LIBOPLPP_EXCEPTION_SOURCE})
-source_group(Dosbox FILES ${DOSBOX_OPL_SOURCE})
+source_group(Emulators\\Dosbox FILES ${DOSBOX_OPL_SOURCE})
 
 if(RPATH)
 # use, i.e. don't skip the full RPATH for the build tree

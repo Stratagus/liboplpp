@@ -7,7 +7,7 @@
  *  \author    Bradley Clemetson
  *  \version   0.0.1
  *  \date      Janurary 5, 2014
- *  \copyright GPL
+ *  \copyright LGPLv2
  */
 
 #include <fstream>
@@ -29,6 +29,7 @@ class OPLMidi
         unsigned int NumberOfTracks();
         unsigned int FramesPerSecond();
         unsigned int TicksPerFrame();
+        unsigned int TicksPerBeat();
     protected:
             MIDI::File *mainMidi;
             MIDI::Header *mainMidiHeader;

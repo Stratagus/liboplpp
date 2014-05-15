@@ -1,7 +1,7 @@
 #ifndef liboplpp_Header
 #define liboplpp_Header
 
-#include "OPLMidi/OPLMidi.hpp"
+#include "Emulators/DosboxOPL/DosboxOPL.hpp"
 
 
 #endif

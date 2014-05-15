@@ -46,3 +46,15 @@ unsigned int OPLMidi::TicksPerFrame()
         throw "Error";
     }
 }
+
+unsigned int OPLMidi::TicksPerBeat()
+{
+    if(mainMidiHeader)
+    {
+        return mainMidiHeader->ticksPerBeat();
+    }
+    else
+    {
+        throw "Error";
+    }
+}
