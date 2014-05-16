@@ -1,4 +1,4 @@
-
+#include "main.hpp"
 #include <fstream>
 
 template <typename T>
@@ -44,7 +44,8 @@ void writeWAVData(
 
 int main()
 {
-
+    DosboxRawOPL myFile;
+    myFile.ReadDroFile("sound.dro");
     
     return 0;
 }

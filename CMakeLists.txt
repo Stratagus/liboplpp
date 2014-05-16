@@ -51,7 +51,8 @@ set(UNITTEST_DIR "./UnitTests")
 
 #Different file format supported by liboplpp
 set(FILEFORMATS_DIR "${SOURCE_DIR}/FileFormats")
-set(S16PCMWAV "${FILEFORMATS_DIR}/S16PCMWav")
+set(PCMWAV_DIR "${FILEFORMATS_DIR}/PCMWav")
+set(DRO_DIR "${FILEFORMATS_DIR}/DosboxRawOPL")
 
 #Different OPL emulators offered
 set(EMULATORS_DIR "${SOURCE_DIR}/Emulators")
@@ -79,6 +80,16 @@ set(LIBOPLPP_UNITTEST_SOURCE
 		${UNITTEST_DIR}/APITest/APITest.cpp
 	)
 
+set(LIBOPLPP_PCMWAV_SOURCE
+		${PCMWAV_DIR}/PCMWav.hpp
+		${PCMWAV_DIR}/PCMWav.cpp
+	)
+
+set(LIBOPLPP_DOSBOXRAWOPL_SOURCE
+		${DRO_DIR}/DosboxRawOPL.hpp
+		${DRO_DIR}/DosboxRawOPL.cpp
+	)
+
 set(DOSBOX_OPL_SOURCE
 		${DOSBOX_SOURCE_DIR}/dbopl.h
 		${DOSBOX_SOURCE_DIR}/dbopl.cpp
@@ -98,6 +109,10 @@ set(OPLPLAYER_SOURCE
 source_group(Main FILES ${LIBOPLPP_SOURCE})
 source_group(FileFormats\\OPLMidi FILES ${OPLMIDI_SOURCE})
 source_group(Exceptions FILES ${LIBOPLPP_EXCEPTION_SOURCE})
+
+source_group(FileFormats\\PCMWAV FILES ${LIBOPLPP_PCMWAV_SOURCE})
+source_group(FileFormats\\DRO FILES ${LIBOPLPP_DOSBOXRAWOPL_SOURCE})
+
 source_group(Emulators\\Dosbox FILES ${DOSBOX_OPL_SOURCE})
 
 if(RPATH)
@@ -122,7 +137,14 @@ IF("${isSystemDir}" STREQUAL "-1")
 ENDIF("${isSystemDir}" STREQUAL "-1")
 endif()
 
-add_library(oplpp SHARED ${LIBOPLPP_SOURCE} ${LIBOPLPP_EXCEPTION_SOURCE} ${OPLMIDI_SOURCE} ${DOSBOX_OPL_SOURCE})
+add_library(oplpp SHARED ${LIBOPLPP_SOURCE} 
+						 ${LIBOPLPP_EXCEPTION_SOURCE} 
+						 ${OPLMIDI_SOURCE} 
+
+						 ${LIBOPLPP_DOSBOXRAWOPL_SOURCE}
+						 ${LIBOPLPP_PCMWAV_SOURCE}
+
+						 ${DOSBOX_OPL_SOURCE})
 target_link_libraries(oplpp midi)
 if(APPLE)
 
