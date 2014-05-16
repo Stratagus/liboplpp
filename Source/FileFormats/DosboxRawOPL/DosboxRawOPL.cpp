@@ -14,11 +14,16 @@ DosboxRawOPL::DosboxRawOPL()
     audioLongDelayLength = 0;
     audioCodeMapLength = 0;
     
+    droData = NULL;
 }
 
 DosboxRawOPL::~DosboxRawOPL()
 {
-    
+    if(droData)
+    {
+        delete droData;
+        droData = NULL;
+    }
 }
 
 void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
@@ -49,27 +54,22 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
         inputFile.read((char *)&droData->front(), static_cast<std::size_t>(length));
         
         //Process the data
-#pragma message ("Add throw here")
-            ReadDro(droData);
-            
-        
-
-        
-        //Delete the dro data we read in
-        delete droData;
-        droData = NULL;
+        ReadDro(droData);
     }
 }
 
 void DosboxRawOPL::ReadDro(std::vector<char> *targetDroData)
 {
-    std::vector<char>::iterator targetDroPosition = targetDroData->begin();
+    droData = targetDroData;
+    targetDroData = NULL;
+    
+    droDataPosition = droData->begin();
     
     //Read in the dro signature
     std::string readInSignature;
     readInSignature.resize(8);
     
-    std::copy(targetDroPosition, (targetDroPosition += 8), (char *) &readInSignature[0]);
+    std::copy(droDataPosition, (droDataPosition += 8), (char *) &readInSignature[0]);
     
     #if VERBOSE >= 2
         std::cout << "Read Signature: " << readInSignature << '\n';
@@ -86,8 +86,8 @@ void DosboxRawOPL::ReadDro(std::vector<char> *targetDroData)
     #endif
     
     //Read the major&minor the file was encoded with
-    std::copy(targetDroPosition, (targetDroPosition += 2), &droMajorVersion);
-    std::copy(targetDroPosition, (targetDroPosition += 2), &droMinorVersion);
+    std::copy(droDataPosition, (droDataPosition += 2), &droMajorVersion);
+    std::copy(droDataPosition, (droDataPosition += 2), &droMinorVersion);
     
     #if VERBOSE >= 2
         std::cout << "Dro Version: " << droMajorVersion << '.' << droMinorVersion << '\n';
@@ -97,13 +97,13 @@ void DosboxRawOPL::ReadDro(std::vector<char> *targetDroData)
     if((droMajorVersion == 0) && (droMinorVersion == 1))
     {
         //Read in the audio length (in miliseconds)
-        std::copy(targetDroPosition, (targetDroPosition += 4), &audioLength);
+        std::copy(droDataPosition, (droDataPosition += 4), &audioLength);
         //Read in the audio length (in bytes)
-        std::copy(targetDroPosition, (targetDroPosition += 4), &audioByteLength);
+        std::copy(droDataPosition, (droDataPosition += 4), &audioByteLength);
         
         //Determine the OPL configuration at the time of recording
         uint8_t readOPLHardwareType;
-        std::copy(targetDroPosition, (targetDroPosition + 1), &readOPLHardwareType);
+        std::copy(droDataPosition, (droDataPosition + 1), &readOPLHardwareType);
         
         //In early files, the field was a UINT8, however in most common (recent) files it is a
         //UINT32LE with only the first byte used. Unfortunately the version number was not changed
@@ -115,20 +115,20 @@ void DosboxRawOPL::ReadDro(std::vector<char> *targetDroData)
         
         //Check whether there is a padded hardware id(
         uint32_t paddedHardwareData;
-        std::copy(targetDroPosition, (targetDroPosition + 4), &paddedHardwareData);
+        std::copy(droDataPosition, (droDataPosition + 4), &paddedHardwareData);
         
         if(paddedHardwareData == 0)
         {
             #if VERBOSE >= 3
                 std::cout << "The Hardware ID was PADDED\n";
-                targetDroPosition += 4;
+                droDataPosition += 4;
             #endif
         }
         else
         {
             #if VERBOSE >= 3
                 std::cout << "The Hardware ID was NOT PADDED\n";
-                targetDroPosition += 1;
+                droDataPosition += 1;
             #endif
         }
         

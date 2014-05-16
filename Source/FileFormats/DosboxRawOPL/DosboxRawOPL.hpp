@@ -47,6 +47,8 @@ class DosboxRawOPL
         void ReadDro(std::vector<char> *targetDroData);
     
     protected:
+        std::vector<char>::iterator droDataPosition;
+        std::vector<char> *droData;
 
         DosboxRawOPL::OPLHardwareType DetectOPLHardware(const uint8_t &droTypeReferenced);
     
