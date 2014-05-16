@@ -2,7 +2,18 @@
 
 DosboxRawOPL::DosboxRawOPL()
 {
-    hardwareEmulator = invalidOpl;
+    currentOPLEmulator = invalidOpl;
+    droMajorVersion = 0;
+    droMinorVersion = 0;
+    audioLength = 0;
+    audioByteLength = 0;
+    audioLengthPairs = 0;
+    audioFormat = 0;
+    audioCompressionType = 0;
+    audioShortDelayLength = 0;
+    audioLongDelayLength = 0;
+    audioCodeMapLength = 0;
+    
 }
 
 DosboxRawOPL::~DosboxRawOPL()
@@ -38,17 +49,10 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
         inputFile.read((char *)&droData->front(), static_cast<std::size_t>(length));
         
         //Process the data
-        try
-        {
+#pragma message ("Add throw here")
             ReadDro(droData);
             
-        }
-        catch (...)
-        {
-            delete droData;
-            droData = NULL;
-            throw "Invalid Dro file";
-        }
+        
 
         
         //Delete the dro data we read in
@@ -57,7 +61,145 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
     }
 }
 
-void DosboxRawOPL::ReadDro(const std::vector<char> *targetDroData)
+void DosboxRawOPL::ReadDro(std::vector<char> *targetDroData)
 {
+    std::vector<char>::iterator targetDroPosition = targetDroData->begin();
     
+    //Read in the dro signature
+    std::string readInSignature;
+    readInSignature.resize(8);
+    
+    std::copy(targetDroPosition, (targetDroPosition += 8), (char *) &readInSignature[0]);
+    
+    #if VERBOSE >= 2
+        std::cout << "Read Signature: " << readInSignature << '\n';
+    #endif
+    if(readInSignature != "DBRAWOPL")
+    {
+        throw "Invalid OPL file";
+    }
+    #if VERBOSE >= 5
+        else
+        {
+            std::cout << "Verified Signature\n";
+        }
+    #endif
+    
+    //Read the major&minor the file was encoded with
+    std::copy(targetDroPosition, (targetDroPosition += 2), &droMajorVersion);
+    std::copy(targetDroPosition, (targetDroPosition += 2), &droMinorVersion);
+    
+    #if VERBOSE >= 2
+        std::cout << "Dro Version: " << droMajorVersion << '.' << droMinorVersion << '\n';
+    #endif
+    
+    //If we are reading in a 0.1 dro, read in this order
+    if((droMajorVersion == 0) && (droMinorVersion == 1))
+    {
+        //Read in the audio length (in miliseconds)
+        std::copy(targetDroPosition, (targetDroPosition += 4), &audioLength);
+        //Read in the audio length (in bytes)
+        std::copy(targetDroPosition, (targetDroPosition += 4), &audioByteLength);
+        
+        //Determine the OPL configuration at the time of recording
+        uint8_t readOPLHardwareType;
+        std::copy(targetDroPosition, (targetDroPosition + 1), &readOPLHardwareType);
+        
+        //In early files, the field was a UINT8, however in most common (recent) files it is a
+        //UINT32LE with only the first byte used. Unfortunately the version number was not changed
+        //between these revisions, so the only way to correctly identify the formats is to check the three
+        //iHardwareExtra bytes. If these are all zero then they can safely be ignored (iHardwareType was a UINT32.)
+        //If any of the three bytes in iHardwareExtra are non-zero, then this is an early
+        //revision of the format and those three bytes are actually song data[1].
+        //From http://www.shikadi.net/moddingwiki/DRO_Format
+        
+        //Check whether there is a padded hardware id(
+        uint32_t paddedHardwareData;
+        std::copy(targetDroPosition, (targetDroPosition + 4), &paddedHardwareData);
+        
+        if(paddedHardwareData == 0)
+        {
+            #if VERBOSE >= 3
+                std::cout << "The Hardware ID was PADDED\n";
+                targetDroPosition += 4;
+            #endif
+        }
+        else
+        {
+            #if VERBOSE >= 3
+                std::cout << "The Hardware ID was NOT PADDED\n";
+                targetDroPosition += 1;
+            #endif
+        }
+        
+        //
+        currentOPLEmulator = DetectOPLHardware(readOPLHardwareType);
+        
+        if(currentOPLEmulator == invalidOpl)
+        {
+            throw "Unknown/Invalid OPL hardware type";
+        }
+    
+    #if VERBOSE >= 2
+        std::cout << "Detected Hardware as ";
+        
+        switch (currentOPLEmulator)
+        {
+            case opl2:
+            {
+                std::cout << "OPL2";
+                break;
+            }
+            case opl3:
+            {
+                std::cout << "OPL3";
+                break;
+            }
+            case dualOpl2:
+            {
+                std::cout << "Dual OPL2";
+                break;
+            }
+            default:
+            {
+                std::cout << "Invalid OPL";
+                break;
+            }
+        }
+        std::cout << '\n';
+    #endif
+    }
+    //The file detected is a dro 2.X
+    else if(droMajorVersion == 2)
+    {
+        
+    }
+    //Invalid/Unknown dro version
+    else
+    {
+        throw "Invalid/Unknown Dro version";
+    }
+}
+
+DosboxRawOPL::OPLHardwareType DosboxRawOPL::DetectOPLHardware(const uint8_t &droTypeReferenced)
+{
+    switch (droTypeReferenced)
+    {
+        case 0:
+        {
+            return DosboxRawOPL::opl2;
+        }
+        case 1:
+        {
+            return DosboxRawOPL::opl3;
+        }
+        case 3:
+        {
+            return DosboxRawOPL::dualOpl2;
+        }
+        default:
+        {
+            return DosboxRawOPL::invalidOpl;
+        }
+    }
 }

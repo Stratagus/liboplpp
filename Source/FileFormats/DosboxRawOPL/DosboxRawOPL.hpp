@@ -15,7 +15,12 @@
 
 #include <string>
 #include <fstream>
+#include <iterator>
 #include <vector>
+#include <algorithm>
+
+#pragma message("This is a hack")
+#define VERBOSE 5
 
 #if defined VERBOSE
     #include <iostream>
@@ -39,19 +44,48 @@ class DosboxRawOPL
     
     
         void ReadDroFile(const std::string &droFilePath);
-        void ReadDro(const std::vector<char> *targetDroData);
+        void ReadDro(std::vector<char> *targetDroData);
     
     protected:
-        OPLHardwareType hardwareEmulator;
+
+        DosboxRawOPL::OPLHardwareType DetectOPLHardware(const uint8_t &droTypeReferenced);
     
+        //***************************
+        //Version Shared Data Objects
+        //***************************
+    
+        //The version of dro files
         uint16_t droMajorVersion;
         uint16_t droMinorVersion;
     
-        //Version Shared Data Objects
+        //What kind of OPL hardware configuration was
+        //used to create the dro
+        OPLHardwareType currentOPLEmulator;
     
+        //Length of the Dro (In miniseconds)
+        uint32_t audioLength;
     
+        //*****************************
         //Version 0.1 ONLY Data Objects
+        //*****************************
+        uint32_t audioByteLength;
+    
+        //*****************************
         //Version 2.0 ONLY Data Objects
+        //*****************************
+    
+        //Length of the song in register/value pairs
+        uint32_t audioLengthPairs;
+        //The data arrangment used
+        uint8_t audioFormat;
+        //Compression Type
+        uint8_t audioCompressionType;
+        //Define how long a "short delay" is (in miliseconds)
+        uint8_t audioShortDelayLength;
+        //Define hwo long a "long delay" is (in miliseconds)
+        uint8_t audioLongDelayLength;
+        //The number of entries in the codemap
+        uint8_t audioCodeMapLength;
     
     private:
 };
