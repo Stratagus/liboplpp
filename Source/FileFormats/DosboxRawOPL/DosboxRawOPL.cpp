@@ -103,7 +103,7 @@ void DosboxRawOPL::ReadDro(std::vector<uint8_t> *targetDroData)
         
         //Determine the OPL configuration at the time of recording
         uint8_t readOPLHardwareType;
-        std::copy(droDataPosition, (droDataPosition + 1), &readOPLHardwareType);
+        std::copy(droDataPosition, (droDataPosition += 1), &readOPLHardwareType);
         
         //In early files, the field was a UINT8, however in most common (recent) files it is a
         //UINT32LE with only the first byte used. Unfortunately the version number was not changed
@@ -115,20 +115,19 @@ void DosboxRawOPL::ReadDro(std::vector<uint8_t> *targetDroData)
         
         //Check whether there is a padded hardware id(
         uint32_t paddedHardwareData;
-        std::copy(droDataPosition, (droDataPosition + 4), &paddedHardwareData);
+        std::copy(droDataPosition, (droDataPosition + 3), &paddedHardwareData);
         
         if(paddedHardwareData == 0)
         {
             #if VERBOSE >= 3
                 std::cout << "The Hardware ID was PADDED\n";
-                droDataPosition += 4;
             #endif
+            droDataPosition += 3;
         }
         else
         {
             #if VERBOSE >= 3
                 std::cout << "The Hardware ID was NOT PADDED\n";
-                droDataPosition += 1;
             #endif
         }
         
