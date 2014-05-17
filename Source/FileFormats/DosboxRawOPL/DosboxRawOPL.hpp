@@ -64,7 +64,7 @@ class DosboxRawOPL
         //used to create the dro
         OPLHardwareType currentOPLEmulator;
     
-        //Length of the Dro (In miniseconds)
+        //Length of the Dro (In milliseconds)
         uint32_t audioLength;
     
         //*****************************
@@ -82,9 +82,9 @@ class DosboxRawOPL
         uint8_t audioFormat;
         //Compression Type
         uint8_t audioCompressionType;
-        //Define how long a "short delay" is (in miliseconds)
+        //Define how long a "short delay" is (in milliseconds)
         uint8_t audioShortDelayLength;
-        //Define hwo long a "long delay" is (in miliseconds)
+        //Define hwo long a "long delay" is (in milliseconds)
         uint8_t audioLongDelayLength;
         //The number of entries in the codemap
         uint8_t audioCodeMapLength;

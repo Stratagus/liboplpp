@@ -96,7 +96,7 @@ void DosboxRawOPL::ReadDro(std::vector<uint8_t> *targetDroData)
     //If we are reading in a 0.1 dro, read in this order
     if((droMajorVersion == 0) && (droMinorVersion == 1))
     {
-        //Read in the audio length (in miliseconds)
+        //Read in the audio length (in milliseconds)
         std::copy(droDataPosition, (droDataPosition += 4), &audioLength);
         //Read in the audio length (in bytes)
         std::copy(droDataPosition, (droDataPosition += 4), &audioByteLength);
