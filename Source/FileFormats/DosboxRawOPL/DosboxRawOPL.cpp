@@ -30,7 +30,7 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
 {
     //This will hold the entire dro in memory, allowing us to process
     //it by the same method.
-    std::vector<char> *droData = NULL;
+    std::vector<uint8_t> *droData = NULL;
     std::ifstream inputFile(droFilePath.c_str(), std::ios::binary);
     inputFile.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);
     
@@ -48,7 +48,7 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
     else
     {
         //Read the data into a vector to parse the data
-        droData = new std::vector<char>;
+        droData = new std::vector<uint8_t>;
         inputFile.seekg(0, std::ios::beg);
         droData->resize(static_cast<std::size_t>(length));
         inputFile.read((char *)&droData->front(), static_cast<std::size_t>(length));
@@ -58,7 +58,7 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
     }
 }
 
-void DosboxRawOPL::ReadDro(std::vector<char> *targetDroData)
+void DosboxRawOPL::ReadDro(std::vector<uint8_t> *targetDroData)
 {
     droData = targetDroData;
     targetDroData = NULL;
