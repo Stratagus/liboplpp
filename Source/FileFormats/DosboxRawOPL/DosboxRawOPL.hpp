@@ -45,6 +45,7 @@ class DosboxRawOPL
     
         void ReadDroFile(const std::string &droFilePath);
         void ReadDro(std::vector<uint8_t> *targetDroData);
+        std::string GetOPLHardware(DosboxRawOPL::OPLHardwareType HardwareType);
     
     protected:
     

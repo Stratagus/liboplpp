@@ -153,32 +153,10 @@ void DosboxRawOPL::ReadDro01()
     {
         throw "Unknown/Invalid OPL hardware type";
     }
+    
 #if VERBOSE >= 2
     std::cout << "Detected Hardware as ";
-    
-    switch (currentOPLEmulator)
-    {
-        case opl2:
-        {
-            std::cout << "OPL2";
-            break;
-        }
-        case opl3:
-        {
-            std::cout << "OPL3";
-            break;
-        }
-        case dualOpl2:
-        {
-            std::cout << "Dual OPL2";
-            break;
-        }
-        default:
-        {
-            std::cout << "Invalid OPL";
-            break;
-        }
-    }
+    std::cout << DosboxRawOPL::GetOPLHardware(currentOPLEmulator);
     std::cout << '\n';
 #endif
  
@@ -208,6 +186,29 @@ DosboxRawOPL::OPLHardwareType DosboxRawOPL::DetectOPLHardware(const uint8_t &dro
         default:
         {
             return DosboxRawOPL::invalidOpl;
+        }
+    }
+}
+
+std::string DosboxRawOPL::GetOPLHardware(DosboxRawOPL::OPLHardwareType HardwareType)
+{
+    switch (HardwareType)
+    {
+        case opl2:
+        {
+            return "OPL2";
+        }
+        case opl3:
+        {
+            return "OPL3";
+        }
+        case dualOpl2:
+        {
+            return "Dual OPL2";
+        }
+        default:
+        {
+            return "Invalid OPL";
         }
     }
 }
