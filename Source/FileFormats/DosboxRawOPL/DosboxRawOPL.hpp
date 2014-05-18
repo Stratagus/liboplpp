@@ -47,6 +47,10 @@ class DosboxRawOPL
         void ReadDro(std::vector<uint8_t> *targetDroData);
     
     protected:
+    
+        void ReadDro01();
+        void ReadDro20();
+
         std::vector<uint8_t>::iterator droDataPosition;
         std::vector<uint8_t> *droData;
 
