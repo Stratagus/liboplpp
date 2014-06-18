@@ -54,11 +54,11 @@ void DosboxRawOPL::ReadDroFile(const std::string &droFilePath)
         inputFile.read((char *)&droData->front(), static_cast<std::size_t>(length));
         
         //Process the data
-        ReadDro(droData);
+        ReadDroHeader(droData);
     }
 }
 
-void DosboxRawOPL::ReadDro(std::vector<uint8_t> *targetDroData)
+void DosboxRawOPL::ReadDroHeader(std::vector<uint8_t> *targetDroData)
 {
     droData = targetDroData;
     targetDroData = NULL;
@@ -110,6 +110,14 @@ void DosboxRawOPL::ReadDro(std::vector<uint8_t> *targetDroData)
     }
 }
 
+std::vector<uint8_t> *DosboxRawOPL::GeneratePCM()
+{
+    std::vector<uint8_t> *generatePCM = new std::vector<uint8_t>;
+    
+    //Initialize the DosboxOPL library
+
+}
+
 void DosboxRawOPL::ReadDro01()
 {
     //Read in the audio length (in milliseconds)
@@ -135,16 +143,16 @@ void DosboxRawOPL::ReadDro01()
     
     if(paddedHardwareData == 0)
     {
-#if VERBOSE >= 3
+    #if VERBOSE >= 3
         std::cout << "The Hardware ID was PADDED\n";
-#endif
+    #endif
         droDataPosition += 3;
     }
     else
     {
-#if VERBOSE >= 3
+    #if VERBOSE >= 3
         std::cout << "The Hardware ID was NOT PADDED\n";
-#endif
+    #endif
     }
     
     currentOPLEmulator = DetectOPLHardware(readOPLHardwareType);
@@ -154,17 +162,23 @@ void DosboxRawOPL::ReadDro01()
         throw "Unknown/Invalid OPL hardware type";
     }
     
-#if VERBOSE >= 2
-    std::cout << "Detected Hardware as ";
-    std::cout << DosboxRawOPL::GetOPLHardware(currentOPLEmulator);
-    std::cout << '\n';
-#endif
- 
+    #if VERBOSE >= 2
+        std::cout << "Detected Hardware as ";
+        std::cout << DosboxRawOPL::GetOPLHardware(currentOPLEmulator);
+        std::cout << '\n';
+    #endif
+    
+    
+    //Now that we are up to the song data, lets get parsing it
+#pragma message ("While not in the spec there appears to be a dead 4 byte length")
+    droDataPosition += 4; //The data position should now be at 28.
+    
+    
 }
 
 void DosboxRawOPL::ReadDro20()
 {
-    
+   throw "Not implemented";
 }
 
 DosboxRawOPL::OPLHardwareType DosboxRawOPL::DetectOPLHardware(const uint8_t &droTypeReferenced)
@@ -190,6 +204,7 @@ DosboxRawOPL::OPLHardwareType DosboxRawOPL::DetectOPLHardware(const uint8_t &dro
     }
 }
 
+#if defined VERBOSE
 std::string DosboxRawOPL::GetOPLHardware(DosboxRawOPL::OPLHardwareType HardwareType)
 {
     switch (HardwareType)
@@ -212,3 +227,4 @@ std::string DosboxRawOPL::GetOPLHardware(DosboxRawOPL::OPLHardwareType HardwareT
         }
     }
 }
+#endif

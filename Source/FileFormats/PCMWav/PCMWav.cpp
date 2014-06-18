@@ -1,8 +1,10 @@
 #include "PCMWav.hpp"
 
-PCMWav::PCMWav()
+PCMWav::PCMWav(const std::string &targetfilePath, const unsigned int &targetSampleRate, const unsigned int &targetChannels)
 {
-        filePath = "";
+    filePath = targetfilePath;
+    sampleRate = targetSampleRate;
+    channels = targetChannels;
 }
 
 PCMWav::~PCMWav()

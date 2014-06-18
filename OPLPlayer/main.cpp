@@ -45,7 +45,8 @@ void writeWAVData(
 int main()
 {
     DosboxRawOPL myFile;
-    myFile.ReadDroFile("sound.dro");
+    myFile.ReadDroFile("sound.v1.dro");
+    std::vector<uint8_t> *myOutputFile = myFile.GeneratePCM();
     
     return 0;
 }

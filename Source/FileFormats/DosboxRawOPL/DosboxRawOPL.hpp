@@ -42,10 +42,10 @@ class DosboxRawOPL
         DosboxRawOPL();
         ~DosboxRawOPL();
     
-    
         void ReadDroFile(const std::string &droFilePath);
-        void ReadDro(std::vector<uint8_t> *targetDroData);
-        std::string GetOPLHardware(DosboxRawOPL::OPLHardwareType HardwareType);
+        void ReadDroHeader(std::vector<uint8_t> *targetDroData);
+        std::vector<uint8_t> *GeneratePCM();
+    
     
     protected:
     
@@ -56,7 +56,9 @@ class DosboxRawOPL
         std::vector<uint8_t> *droData;
 
         DosboxRawOPL::OPLHardwareType DetectOPLHardware(const uint8_t &droTypeReferenced);
-    
+        #if defined VERBOSE
+            std::string GetOPLHardware(DosboxRawOPL::OPLHardwareType HardwareType);
+        #endif
         //***************************
         //Version Shared Data Objects
         //***************************
