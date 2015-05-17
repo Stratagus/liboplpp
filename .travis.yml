@@ -31,4 +31,4 @@ before_script:
 script: make -j
 
 after_success:
-  - ./libgrpUnitTests
+  - echo "Make UnitTests!!"
