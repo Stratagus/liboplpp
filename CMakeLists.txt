@@ -2,12 +2,21 @@
 #chip
 
 project(oplpp)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.7)
 
 #Set the current version of the library
 set(LIBOPLPP_MAJOR_VERSION 0)
 set(LIBOPLPP_MINOR_VERSION 1)
 set(LIBOPLPP_PATCH_VERSION 0)
+
+#Use C++11 if possible (or the most recent that we can use
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+if(COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+else()
+        message(FATAL "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+endif()
 
 #If you want debug information add the flag -DVERBOSE= [1-5]
 #1 being basic 5 for everything
