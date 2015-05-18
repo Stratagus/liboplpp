@@ -8,8 +8,7 @@
  *  \copyright LGPLv2
  */
 
-#ifndef OPLPPException_Header
-#define OPLPPException_Header
+#pragma once
 
 #include <exception>
 
@@ -19,5 +18,3 @@ class OplppException : public std::exception
     protected:
     private:
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef DosboxOPL_Header
-#define DosboxOPL_Header
+#pragma once
 
 #include "dbopl.h"
 
@@ -14,5 +13,3 @@ class DosboxOPL
     unsigned int mainSoundChannels;
     unsigned int mainSoundSampleRate;
 };
-
-#endif

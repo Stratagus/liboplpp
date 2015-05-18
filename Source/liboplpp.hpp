@@ -1,5 +1,4 @@
-#ifndef liboplpp_H
-#define liboplpp_H
+#pragma once
 
 /*! \mainpage General Information
  *  liboplpp Motivation
@@ -49,6 +48,3 @@
 
 //The different OPL Implementataions
 #include "Emulators/DosboxOPL/DosboxOPL.hpp"
-
-
-#endif

@@ -7,8 +7,7 @@
  *  \copyright LGPLv2
  */
 
-#ifndef PCMWav_Header
-#define PCMWav_Header
+#pragma once
 
 #include <string>
 
@@ -42,5 +41,3 @@ class PCMWav
         //The number of channel in the audio
         unsigned int channels;
 };
-
-#endif

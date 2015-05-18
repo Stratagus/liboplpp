@@ -10,8 +10,7 @@
  *  \date      May 14, 2014
  *  \copyright LGPLv2
  */
-#ifndef DosboxRawOPL_Header
-#define DosboxRawOPL_Header
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -98,5 +97,3 @@ class DosboxRawOPL
     
     private:
 };
-
-#endif
