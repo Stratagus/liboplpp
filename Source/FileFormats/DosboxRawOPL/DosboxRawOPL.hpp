@@ -94,6 +94,8 @@ class DosboxRawOPL
         uint8_t audioLongDelayLength;
         //The number of entries in the codemap
         uint8_t audioCodeMapLength;
+        //Codemap table
+        std::vector<uint8_t> codeMapTable;
     
     private:
 };

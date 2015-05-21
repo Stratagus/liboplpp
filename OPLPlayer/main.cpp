@@ -46,7 +46,9 @@ int main()
 {
     DosboxRawOPL myFile;
     myFile.ReadDroFile("sound.v1.dro");
-    std::vector<uint8_t> *myOutputFile = myFile.GeneratePCM();
+
+    DosboxRawOPL myFile2;
+    myFile2.ReadDroFile("sound.v2.dro");
     
     return 0;
 }

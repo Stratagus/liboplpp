@@ -14,7 +14,7 @@ DosboxRawOPL::DosboxRawOPL()
     audioLongDelayLength = 0;
     audioCodeMapLength = 0;
     
-    droData = NULL;
+    droData = nullptr;
 }
 
 DosboxRawOPL::~DosboxRawOPL()
@@ -22,7 +22,7 @@ DosboxRawOPL::~DosboxRawOPL()
     if(droData)
     {
         delete droData;
-        droData = NULL;
+        droData = nullptr;
     }
 }
 
@@ -69,8 +69,9 @@ void DosboxRawOPL::ReadDroHeader(std::vector<uint8_t> *targetDroData)
     std::string readInSignature;
     readInSignature.resize(8);
     
-    std::copy(droDataPosition, (droDataPosition += 8), (char *) &readInSignature[0]);
-    
+    std::copy(droDataPosition, (droDataPosition + 8), (char *) &readInSignature[0]);
+    droDataPosition += 8;
+
     #if VERBOSE >= 2
         std::cout << "Read Signature: " << readInSignature << '\n';
     #endif
@@ -86,8 +87,10 @@ void DosboxRawOPL::ReadDroHeader(std::vector<uint8_t> *targetDroData)
     #endif
     
     //Read the major&minor the file was encoded with
-    std::copy(droDataPosition, (droDataPosition += 2), &droMajorVersion);
-    std::copy(droDataPosition, (droDataPosition += 2), &droMinorVersion);
+    std::copy(droDataPosition, (droDataPosition + 2), &droMajorVersion);
+    droDataPosition += 2;
+    std::copy(droDataPosition, (droDataPosition + 2), &droMinorVersion);
+    droDataPosition += 2;
     
     #if VERBOSE >= 2
         std::cout << "Dro Version: " << droMajorVersion << '.' << droMinorVersion << '\n';
@@ -121,14 +124,17 @@ std::vector<uint8_t> *DosboxRawOPL::GeneratePCM()
 void DosboxRawOPL::ReadDro01()
 {
     //Read in the audio length (in milliseconds)
-    std::copy(droDataPosition, (droDataPosition += 4), &audioLength);
+    std::copy(droDataPosition, (droDataPosition + 4), &audioLength);
+    droDataPosition += 4;
     //Read in the audio length (in bytes)
-    std::copy(droDataPosition, (droDataPosition += 4), &audioByteLength);
+    std::copy(droDataPosition, (droDataPosition + 4), &audioByteLength);
+    droDataPosition += 4;
     
     //Determine the OPL configuration at the time of recording
     uint8_t readOPLHardwareType;
-    std::copy(droDataPosition, (droDataPosition += 1), &readOPLHardwareType);
-    
+    std::copy(droDataPosition, (droDataPosition + 1), &readOPLHardwareType);
+    droDataPosition += 1;
+
     //In early files, the field was a UINT8, however in most common (recent) files it is a
     //UINT32LE with only the first byte used. Unfortunately the version number was not changed
     //between these revisions, so the only way to correctly identify the formats is to check the three
@@ -154,7 +160,7 @@ void DosboxRawOPL::ReadDro01()
         std::cout << "The Hardware ID was NOT PADDED\n";
     #endif
     }
-    
+
     currentOPLEmulator = DetectOPLHardware(readOPLHardwareType);
     
     if(currentOPLEmulator == invalidOpl)
@@ -163,9 +169,7 @@ void DosboxRawOPL::ReadDro01()
     }
     
     #if VERBOSE >= 2
-        std::cout << "Detected Hardware as ";
-        std::cout << DosboxRawOPL::GetOPLHardware(currentOPLEmulator);
-        std::cout << '\n';
+        std::cout << "Detected Hardware as " << DosboxRawOPL::GetOPLHardware(currentOPLEmulator) << '\n';
     #endif
     
     
@@ -178,7 +182,82 @@ void DosboxRawOPL::ReadDro01()
 
 void DosboxRawOPL::ReadDro20()
 {
-   throw "Not implemented";
+    //Read in the length in pairs
+    std::copy(droDataPosition, (droDataPosition + 4), &audioLengthPairs);
+    droDataPosition += 4;
+    #if VERBOSE >= 2
+        std::cout << "Length of song in register/value pairs: " << audioLengthPairs << '\n';
+    #endif
+
+    //Read in the length of the song data in miliseconds
+    std::copy(droDataPosition, (droDataPosition + 4), &audioLength);
+    droDataPosition += 4;
+    #if VERBOSE >= 2
+        std::cout << "Length of song in miliseconds is: " << audioLength << "ms\n";
+    #endif
+
+   //Determine the OPL configuration at the time of recording
+   uint8_t readOPLHardwareType;
+   std::copy(droDataPosition, (droDataPosition + 1), &readOPLHardwareType);
+   droDataPosition += 1;
+   currentOPLEmulator = DetectOPLHardware(readOPLHardwareType);
+   #if VERBOSE >= 2
+       std::cout << "Detected Hardware as " << DosboxRawOPL::GetOPLHardware(currentOPLEmulator) << '\n';
+   #endif
+
+   //Determine the format data arrangement of the dro
+   std::copy(droDataPosition, (droDataPosition + 1), &audioFormat);
+   droDataPosition += 1;
+   #if VERBOSE >= 2
+       std::cout << "Dro V2 audio format: " << static_cast<unsigned int>(audioFormat) << '\n';
+   #endif
+
+   //Determine the compression type
+   std::copy(droDataPosition, (droDataPosition + 1), &audioCompressionType);
+   droDataPosition += 1;
+   #if VERBOSE >= 2
+       std::cout << "Dro V2 compression type: " << static_cast<unsigned int>(audioCompressionType) << '\n';
+   #endif
+
+   //Short delay time
+   std::copy(droDataPosition, (droDataPosition + 1), &audioShortDelayLength);
+   droDataPosition += 1;
+   #if VERBOSE >= 2
+       std::cout << "Dro V2 SHORT delay time: " << static_cast<unsigned int>(audioShortDelayLength) << "ms\n";
+   #endif
+
+   //Long delay time
+   std::copy(droDataPosition, (droDataPosition + 1), &audioLongDelayLength);
+   droDataPosition += 1;
+   #if VERBOSE >= 2
+       std::cout << "Dro V2 LONG delay time: " << static_cast<unsigned int>(audioLongDelayLength) << "ms\n";
+   #endif
+
+
+   //Codemap Length
+   std::copy(droDataPosition, (droDataPosition + 1), &audioCodeMapLength);
+   droDataPosition += 1;
+   #if VERBOSE >= 2
+       std::cout << "Dro V2 Audio code map length: " << static_cast<unsigned int>(audioCodeMapLength) << "ms\n";
+   #endif
+
+   //Read in the audio code map
+   codeMapTable.resize(audioCodeMapLength);
+   std::copy(droDataPosition, (droDataPosition + audioCodeMapLength), &codeMapTable.at(0));
+   droDataPosition += audioCodeMapLength;
+
+    #if VERBOSE >= 5
+        std::cout << "***Codetable Start***\n";
+        for(uint8_t code : codeMapTable)
+            std::cout << static_cast<unsigned int>(code);
+        std::cout << "\n***Codetable End***\n";
+    #endif
+
+   //Ensure that the OPL hardware is correct.
+   if(currentOPLEmulator == invalidOpl)
+   {
+       throw "Unknown/Invalid OPL hardware type";
+   }
 }
 
 DosboxRawOPL::OPLHardwareType DosboxRawOPL::DetectOPLHardware(const uint8_t &droTypeReferenced)
