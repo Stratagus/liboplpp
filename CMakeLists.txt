@@ -4,6 +4,15 @@
 project(oplpp)
 cmake_minimum_required(VERSION 2.8.7)
 
+#We will assume you always want to build this project
+#with debugging symbols
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
+      "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
+      FORCE)
+endif(NOT CMAKE_BUILD_TYPE)
+
+
 #Set the current version of the library
 set(LIBOPLPP_MAJOR_VERSION 0)
 set(LIBOPLPP_MINOR_VERSION 1)
